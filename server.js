@@ -62,9 +62,9 @@ app.post("/api/posts", (req, res) => {
 
 // Delete post
 
-app.use("/api/posts/:id", (req, res) => {
+app.delete("/api/posts/:id", (req, res) => {
   const id = Number(req.params.id);
-  const post = posts.filter((post) => post.id === id);
+  const post = posts.find((post) => post.id === id);
 
   if (!post) {
     return res
@@ -77,6 +77,20 @@ app.use("/api/posts/:id", (req, res) => {
 });
 
 // Edit post
+
+app.put("/api/posts/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    return res
+      .status(404)
+      .json({ message: `Error accured post with id ${id} was not found` });
+  }
+
+  post.title = req.body.title;
+  res.status(201).json(posts);
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT: ${PORT}`);
