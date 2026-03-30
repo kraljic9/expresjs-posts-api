@@ -44,7 +44,21 @@ app.get("/api/posts/:id", (req, res) => {
 
 // Add post
 
-app.post("/api/posts", (req, res) => {});
+app.post("/api/posts", (req, res) => {
+  const newPost = {
+    id: posts.length + 1,
+    title: req.body.title,
+  };
+
+  if (!newPost.title) {
+    return res
+      .status(400)
+      .json({ message: "Error accured please add a title" });
+  }
+
+  posts.push(newPost);
+  res.status(201).json(posts);
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT: ${PORT}`);
