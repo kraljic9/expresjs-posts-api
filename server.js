@@ -3,6 +3,11 @@ import express from "express";
 const PORT = process.env.PORT || 8000;
 const app = express();
 
+// Handle body data
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Post array hardcoded API
 let posts = [
   { id: 1, title: "Post one" },
   { id: 2, title: "Post two" },
@@ -36,6 +41,10 @@ app.get("/api/posts/:id", (req, res) => {
 
   res.status(200).json(post);
 });
+
+// Add post
+
+app.post("/api/posts", (req, res) => {});
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT: ${PORT}`);
