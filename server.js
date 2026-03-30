@@ -60,6 +60,24 @@ app.post("/api/posts", (req, res) => {
   res.status(201).json(posts);
 });
 
+// Delete post
+
+app.use("/api/posts/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const post = posts.filter((post) => post.id === id);
+
+  if (!post) {
+    return res
+      .status(404)
+      .json({ message: `Error accured post with id ${id} was not found` });
+  }
+
+  posts = posts.filter((post) => post.id !== id);
+  res.status(201).json(posts);
+});
+
+// Edit post
+
 app.listen(PORT, () => {
   console.log(`Server running on PORT: ${PORT}`);
 });
