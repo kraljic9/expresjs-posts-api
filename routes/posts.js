@@ -12,7 +12,7 @@ let posts = [
 
 // Get all posts
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   const limit = Number(req.query.limit);
 
   if (!isNaN(limit) && limit > 0) {
@@ -24,14 +24,14 @@ router.get("/", (req, res) => {
 
 // Get individual post
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
   const id = Number(req.params.id);
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    return res
-      .status(404)
-      .json({ message: `Error could not find post with id ${id}` });
+    const error = new Error(`Error accured post with id ${id} was not found`);
+    error.status = 404;
+    return next(error);
   }
 
   res.status(200).json(post);
@@ -39,16 +39,16 @@ router.get("/:id", (req, res) => {
 
 // Add post
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   const newPost = {
     id: posts.length + 1,
     title: req.body.title,
   };
 
   if (!newPost.title) {
-    return res
-      .status(400)
-      .json({ message: "Error accured please add a title" });
+    const error = new Error(`Error accured please add a title`);
+    error.status = 404;
+    return next(error);
   }
 
   posts.push(newPost);
@@ -57,14 +57,14 @@ router.post("/", (req, res) => {
 
 // Delete post
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res, next) => {
   const id = Number(req.params.id);
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    return res
-      .status(404)
-      .json({ message: `Error accured post with id ${id} was not found` });
+    const error = new Error(`Error accured post with id ${id} was not found`);
+    error.status = 404;
+    return next(error);
   }
 
   posts = posts.filter((post) => post.id !== id);
@@ -73,14 +73,14 @@ router.delete("/:id", (req, res) => {
 
 // Edit post
 
-router.put("/:id", (req, res) => {
+router.put("/:id", (req, res, next) => {
   const id = Number(req.params.id);
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    return res
-      .status(404)
-      .json({ message: `Error accured post with id ${id} was not found` });
+    const error = new Error(`Error accured post with id ${id} was not found`);
+    error.status = 404;
+    return next(error);
   }
 
   post.title = req.body.title;
