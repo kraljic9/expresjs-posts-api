@@ -7,7 +7,7 @@ let posts = [
 ];
 
 // @desc get all posts
-// @route get /api/posts
+// @route GET /api/posts
 
 export const getPosts = (req, res, next) => {
   const limit = Number(req.query.limit);
@@ -20,7 +20,7 @@ export const getPosts = (req, res, next) => {
 };
 
 // @desc get single post
-// @route get /api/posts
+// @route GET /api/posts
 
 export const getPost = (req, res, next) => {
   const id = Number(req.params.id);
@@ -36,7 +36,7 @@ export const getPost = (req, res, next) => {
 };
 
 // @desc add post
-// @route post /api/posts
+// @route POST /api/posts
 
 export const addPost = (req, res, next) => {
   const newPost = {
@@ -55,7 +55,7 @@ export const addPost = (req, res, next) => {
 };
 
 // @desc delete post
-// @route delete /api/posts
+// @route DELETE /api/posts
 
 export const deletePost = (req, res, next) => {
   const id = Number(req.params.id);
@@ -72,7 +72,7 @@ export const deletePost = (req, res, next) => {
 };
 
 // @desc edit single post
-// @route put /api/posts
+// @route PUT /api/posts
 
 export const editPost = (req, res, next) => {
   const id = Number(req.params.id);
