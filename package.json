@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/kraljic9/expresjs-posts-api#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "express": "^5.2.1"
   }
 }
