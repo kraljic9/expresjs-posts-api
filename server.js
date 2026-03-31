@@ -2,6 +2,7 @@ import express from "express";
 import posts from "./routes/posts.js";
 import errorHandler from "./middleware/error.js";
 import notFound from "./middleware/notFound.js";
+import logger from "./middleware/logger.js";
 const PORT = process.env.PORT || 8000;
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/posts", posts);
+app.use(logger);
 
 app.use(notFound);
 app.use(errorHandler);
